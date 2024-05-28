@@ -1,30 +1,30 @@
-import pages from '@hono/vite-cloudflare-pages'
-import devServer from '@hono/vite-dev-server'
-import { defineConfig } from 'vite'
+import pages from "@hono/vite-cloudflare-pages";
+import devServer from "@hono/vite-dev-server";
+import { defineConfig } from "vite";
 
 export default defineConfig(({ mode }) => {
-  if (mode === 'client') {
+  if (mode === "client") {
     return {
       build: {
         rollupOptions: {
-          input: './src/client.tsx',
+          input: "./src/client.tsx",
           output: {
-            entryFileNames: 'static/client.js'
-          }
-        }
-      }
-    }
+            entryFileNames: "static/client.js",
+          },
+        },
+      },
+    };
   } else {
     return {
       ssr: {
-        external: ['ai', 'openai', 'react', 'react-dom']
+        external: ["ai", "openai", "react", "react-dom", "secure-json-parse"],
       },
       plugins: [
         pages(),
         devServer({
-          entry: 'src/index.tsx'
-        })
-      ]
-    }
+          entry: "src/index.tsx",
+        }),
+      ],
+    };
   }
-})
+});
